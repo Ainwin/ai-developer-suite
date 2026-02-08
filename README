@@ -1,0 +1,20 @@
+# Developer Assistant AI
+**Automated code documentation and refactoring tool.**
+
+## Project Overview
+Developer Assistant is a utility designed to streamline the code review process. By leveraging the Gemini 2.5 Flash-Lite LLM, the tool provides automated inline commenting and structural refactoring to improve code maintainability and readability.
+
+## Technical Specifications
+* **Runtime:** Python 3.10+
+* **Core Engine:** Gemini 2.5 API via REST
+* **Interface:** Streamlit Web Framework
+* **Data Protocol:** JSON / HTTPS
+
+## Operational Modes
+- **Comment Only:** Generates line-by-line technical explanations while preserving original logic.
+- **Refactor and Comment:** Optimizes code structure for performance and PEP 8 compliance while providing documentation.
+
+## Installation and Usage
+1. Initialize environment: `pip install streamlit requests`
+2. Configure API credentials in `web_app.py`.
+3. Launch application: `streamlit run web_app.py`
