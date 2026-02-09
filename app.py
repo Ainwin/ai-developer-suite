@@ -1,7 +1,7 @@
 import requests
 import json
 
-API_KEY = "AIzaSyBEhLDLWzv-Hvtf2eYEa8yCbZRA4XzpgDg"
+API_KEY = os.getenv("GEMINI_API_KEY") or (st.secrets["GEMINI_API_KEY"] if "GEMINI_API_KEY" in st.secrets else None)
 # Using the stable 2026 endpoint
 url = f"https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash-lite:generateContent?key={API_KEY}"
 
