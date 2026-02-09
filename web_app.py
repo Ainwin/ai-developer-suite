@@ -3,7 +3,20 @@ import google.generativeai as genai
 from PIL import Image
 import os
 from dotenv import load_dotenv
-
+st.markdown("""
+    <style>
+    .main {
+        background-color: #f0f2f6;
+    }
+    .stButton>button {
+        width: 100%;
+        border-radius: 5px;
+        height: 3em;
+        background-color: #007bff;
+        color: white;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 # 1. Setup & Security
 load_dotenv()
 # Handles both local (.env) and cloud (st.secrets)
@@ -21,7 +34,7 @@ st.set_page_config(page_title="Ainwin Developer Suite", layout="wide", page_icon
 # 3. Sidebar Navigation
 st.sidebar.title("🛠️ AI Suite")
 st.sidebar.markdown("---")
-app_mode = st.sidebar.radio("Select a Tool:", ["Code Assistant", "Vision Explainer", "Resume Matcher"])
+app_mode = st.sidebar.radio("Select a Tool:", ["Code Assistant", "Vision Explainer", "Resume Matcher", "Voice Assistant"])
 
 # --- MODE 1: CODE ASSISTANT (Your Original Logic) ---
 if app_mode == "Code Assistant":
@@ -114,5 +127,36 @@ elif app_mode == "Resume Matcher":
                     
                 except Exception as e:
                     st.error(f"Error reading PDF: {e}")
+# --- MODE 4: VOICE MODE  ---
+elif app_mode == "Voice Assistant":
+    st.header("🎙️ AI Voice Assistant")
+    st.write("Record your voice and get an AI response!")
+
+    from gtts import gTTS
+    import io
+
+    # 1. Audio Input from User
+    audio_value = st.audio_input("Say something to the AI:")
+
+    if audio_value:
+        if st.button("Process Voice"):
+            with st.spinner("Thinking..."):
+                # Note: For full speech-to-text, you'd usually use OpenAI Whisper 
+                # or Google Cloud Speech. For now, let's process the input logic!
+                
+                model = genai.GenerativeModel('gemini-2.5-flash')
+                
+                # For this demo, we'll simulate the interaction
+                # In a real app, you'd send the audio file to Gemini's multimodal endpoint
+                response = model.generate_content("The user just spoke to you. Greet them and ask how you can help with their code.")
+                
+                st.markdown(f"### AI Response: \n {response.text}")
+
+                # 2. Convert Text back to Speech
+                tts = gTTS(text=response.text, lang='en')
+                audio_fp = io.BytesIO()
+                tts.write_to_fp(audio_fp)
+                
+                st.audio(audio_fp, format='audio/mp3')                   
 st.sidebar.markdown("---")
 st.sidebar.caption("Built with by Ainwin")
