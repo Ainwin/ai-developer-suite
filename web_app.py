@@ -159,4 +159,10 @@ elif app_mode == "Voice Assistant":
                 
                 st.audio(audio_fp, format='audio/mp3')                   
 st.sidebar.markdown("---")
-st.sidebar.caption("Built with by Ainwin")
+with st.sidebar.expander("👨‍💻 About the Developer"):
+    st.write("""
+    **Name:** Ainwin
+    **Focus:** AI Integrations & Full-Stack Python
+    **GitHub:** [https://github.com/Ainwin]
+    **LinkedIn:** [https://www.linkedin.com/in/ainwin-antony-b8a232305?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app]
+    """)
